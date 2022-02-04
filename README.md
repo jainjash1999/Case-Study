@@ -52,7 +52,7 @@ public class CountLettersInArray {
 					count++;
 				}
 			}
-			System.out.println(array[i] + " --> " + count);
+			System.out.println(array[i] + " no. of times: " + count);
 		}
 
 	}
