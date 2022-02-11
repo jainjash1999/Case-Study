@@ -1,1 +1,314 @@
+package caseStudy2;
+
+abstract public class Item { // abstract superclass
+
+	private int unique_id; // unique identification number
+	private String title; // title
+	private int noCopies; // number of copies
+
+	public Item() { // constructor
+		unique_id = 0;
+		title = " ";
+		noCopies = 0;
+	}
+
+	public int getUnique_id() { // getter and setters
+		return unique_id;
+	}
+
+	public void setUnique_id(int unique_id) {
+		this.unique_id = unique_id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getNoCopies() {
+		return noCopies;
+	}
+
+	public void setNoCopies(int noCopies) {
+		this.noCopies = noCopies;
+	}
+
+	public void equals() { // equals
+
+	}
+
+	public String toString() { // toString
+		return "ID: " + unique_id + " Title: " + title + " Number of Copies: " + noCopies;
+	}
+
+	public void print() { // print
+		System.out.println("ID: " + unique_id);
+		System.out.println("Title: " + title);
+		System.out.println("Number of Copies: " + noCopies);
+	}
+
+	public void checkIn() {		//check in
+		noCopies = noCopies + 1;
+	}
+
+	public void checkOut() {		//check out
+		noCopies = noCopies - 1;
+	}
+	
+	public void addItem(int unique_id, String title, int noCopies) {		//add item
+		this.unique_id = unique_id;
+		this.title = title;
+		this.noCopies = noCopies;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+package caseStudy2;
+
+public class WrittenItem extends Item {
+
+	private String author;
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public int getunique_id() {
+		return super.getUnique_id();
+	}
+
+	public String getTitle() {
+		return super.getTitle();
+	}
+
+	public int getNoCopies() {
+		return super.getNoCopies();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+package caseStudy2;
+
+public class Book extends WrittenItem {
+
+	public int getIdNum(){
+		return super.getunique_id();
+		}
+		public String getTitle(){
+		return super.getTitle();
+		}
+		public int getNumCopies(){
+		return super.getNoCopies();
+		}
+		public String getAuthor(){
+		return super.getAuthor();
+		}
+		public void print(){
+		System.out.println("Display info about a book: ");
+		super.print();
+		}
+		public void checkIn(){
+		super.checkIn();
+		}
+		public void checkOut(){
+		super.checkOut();
+		}
+		
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+package caseStudy2;
+
+public class JournalPaper extends WrittenItem {
+
+	private int yearPublished;
+
+	public int getYearPublished() {
+		return yearPublished;
+	}
+
+	public void setYearPublished(int yearPublished) {
+		this.yearPublished = yearPublished;
+	}
+	
+	public int getIdNum(){
+		return super.getunique_id();
+		}
+		public String title(){
+		return super.getTitle();
+		}
+		public int numCopies(){
+		return super.getNoCopies();
+		}
+		public String getAuthor(){
+		return super.getAuthor();
+		}
+		public int yearPub(){
+		return yearPublished;
+		}
+		public void print(){
+		super.print();
+		System.out.println("Year published: "+ yearPublished);
+		}
+		public void checkIn(){
+		  
+		}
+		public void checkOut(){
+		  
+		}
+		
+}
+
+
+
+
+
+
+
+
+
+package caseStudy2;
+
+public class MediaItem extends Item{
+
+	private int runTime;
+
+	public int getRunTime() {
+		return runTime;
+	}
+
+	public void setRunTime(int runTime) {
+		this.runTime = runTime;
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package caseStudy2;
+
+public class Video extends MediaItem{
+
+	private String director;
+	private String genre;
+	private int yearReleased;
+	public String getDirector() {
+		return director;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	public int getYearReleased() {
+		return yearReleased;
+	}
+	public void setYearReleased(int yearReleased) {
+		this.yearReleased = yearReleased;
+	}
+	
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+package caseStudy2;
+
+public class CD extends MediaItem{
+	
+	private String artist;
+	private String genre;
+	public String getArtist() {
+		return artist;
+	}
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	
+	public int getidNum(){
+		return super.getUnique_id();
+		}
+		public String getTitle(){
+		return super.getTitle();
+		}
+		public int getNumCopies(){
+		return super.getNoCopies();
+		}
+	
+
+}
+
+
+
 
