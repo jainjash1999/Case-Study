@@ -1,178 +1,185 @@
-package caseStudy;
+package caseStudy3;
+
+public class Product { //abstract class
+
+	
+	private String pname; 
+	private int pamount;
+	private int pcode;
+	private String paddrs;
+	private int ppincode;
+	public String getPname() {		//getters and setters
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public int getPamount() {
+		return pamount;
+	}
+	public void setPamount(int pamount) {
+		this.pamount = pamount;
+	}
+	public int getPcode() {
+		return pcode;
+	}
+	public void setPcode(int pcode) {
+		this.pcode = pcode;
+	}
+	public String getPaddrs() {
+		return paddrs;
+	}
+	public void setPaddrs(String paddrs) {
+		this.paddrs = paddrs;
+	}
+	public int getPpincode() {
+		return ppincode;
+	}
+	public void setPpincode(int ppincode) {
+		this.ppincode = ppincode;
+	}
+
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+	public Product(String pname, int pamount, int pcode, String paddrs, int ppincode) {
+		super();
+		this.pname = pname;
+		this.pamount = pamount;
+		this.pcode = pcode;
+		this.paddrs = paddrs;
+		this.ppincode = ppincode;
+	}
+	@Override
+	public String toString() {
+		return "Product [pname=" + pname + ", pamount=" + pamount + ", pcode=" + pcode + ", paddrs=" + paddrs
+				+ ", ppincode=" + ppincode + "]";
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+package caseStudy3;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
-class Product1 {
-
-	private
-
-	String name;
-	int amount;
-	int code;
-	String address;
-	int pincode;
-	int productid;
-
-	public int getProductid() {
-		return productid;
-	}
-
-	public void setProductid(int productid) {
-		this.productid = productid;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public int getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(int pincode) {
-		this.pincode = pincode;
-	}
-
-}
-
-public class Client extends Product1 {
-
-	public void addProduct() {
-
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter a Product id");
-		int n = sc.nextInt();
-		sc.nextLine();
-		setProductid(n);
-		System.out.println("Enter Name of product");
-		String name = sc.nextLine();
-		setName(name);
-		System.out.println("Enter the amount");
-		int amount = sc.nextInt();
-
-		setAmount(amount);
-		System.out.println("Enter the code for product");
-		int code = sc.nextInt();
-		sc.nextLine();
-		setCode(code);
-		System.out.println("Enter address");
-		String address = sc.next();
-		setAddress(address);
-
-		System.out.println("Enter Pincode");
-		int pincode = sc.nextInt();
-		setPincode(pincode);
-
-	}
-
-	public void Update(Client l) {
-		l.addProduct();
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "Product id" + getProductid() + "Product Name " + getName() + "\n" + "Price " + getAmount() + "\n"
-				+ "Product Code " + getCode() + "\n" + "Address " + getAddress() + "\n" + "Pincode " + getPincode()
-				+ "\n";
-	}
+public class Client {
 
 	public static void main(String[] args) {
-
-		HashMap<Integer, Client> data = new HashMap<Integer, Client>();
-
-		int ch = 0;
-		Scanner sc = new Scanner(System.in);
-
-		while (true) {
-			System.out.println("\n****Enter a choice****\n");
-			System.out.println("1. Add Product");
-			System.out.println("2. Update Producr");
-			System.out.println("3. Delete Product");
-			System.out.println("4. Get Product ");
-			System.out.println("5. Get All Products");
-			System.out.println("6. Exit");
-			ch = sc.nextInt();
-			if (ch == 6) {
+		
+		HashMap<Integer,Product> product=new HashMap<Integer,Product>();
+		
+		int pid=100;
+		
+		while(true) {
+			
+			System.out.println("Product managemant Application");
+			System.out.println("1.Add Product");
+			System.out.println("2.Update Product");
+			System.out.println("3.get Product");
+			System.out.println("4.get all products");
+			System.out.println("5.Delete Product");
+			
+			Scanner sc= new Scanner(System.in);
+			
+			int option=sc.nextInt();
+			
+			switch(option) {
+			
+			case 1:
+				System.out.println("Enter to add product details");
+				System.out.println("Enter product name");
+				       String pname=sc.next();
+				System.out.println("Enter product amount");
+				       int pamount=sc.nextInt();
+				System.out.println("Enter product code");
+				     int pcode=sc.nextInt();
+				System.out.println("Enter product address");
+				       String padd=sc.next();
+				System.out.println("Enter product pincode");
+				     int ppincode=sc.nextInt();
+				  
+				 Product pd= new Product(pname, pamount, pcode, padd, ppincode);
+				 
+				 product.put(++pid, pd);
+				 
+				 System.out.println("product addedd succsfully :"+pid);
+				     
 				break;
-			}
-			switch (ch) {
-			case 1: {
-				Client c = new Client();
-				c.addProduct();
-				data.put(c.getProductid(), c);
-				System.out.println("Product added Successfully");
-
+	       case 2:
+	    	   
+	    	   System.out.println("Enter to Update the product details");
+	    	   
+	    	   System.out.println("ENTER ID TO UPDATE");
+	    	              int pid1=sc.nextInt();
+	    	     System.out.println("Enter product name");
+				       String pname1=sc.next();
+				System.out.println("Enter product amount");
+				       int pamount1=sc.nextInt();
+				System.out.println("Enter product code");
+				     int pcode1=sc.nextInt();
+				System.out.println("Enter product address");
+				       String padd1=sc.next();
+				System.out.println("Enter product pincode");
+				     int ppincode1=sc.nextInt();
+	    	   
+				     Product pd1= new Product(pname1, pamount1, pcode1, padd1, ppincode1);
+				
+				    		product.put(pid1, pd1);
+				     
+				     System.out.println("product updated suscfully :"+pid1);
 				break;
-			}
-
-			case 2: {
-
-				System.out.println("Enter Product id");
-				int n = sc.nextInt();
-				data.get(n).addProduct();
-				System.out.println("Product Updated Successfully \n");
+	       case 3:
+	    	   System.out.println("Enter id to get the product details");
+	    	      int pid2=sc.nextInt();
+	 
+	    	      Product pobj=product.get(pid2);
+	    	      System.out.println(pobj);
+	    	      
 				break;
-
-			}
-			case 3: {
-
-				System.out.println("Enter a Product id");
-				int n = sc.nextInt();
-				data.remove(n);
-				System.out.println("Product Deleted \n");
+	       case 4:
+	    	   Set<Entry<Integer,Product>> result=product.entrySet();
+	    	   Iterator<Entry<Integer,Product>> itr=result.iterator();
+	    	   
+	    	   while(itr.hasNext()) {
+	    		   Entry<Integer,Product> finalResult=itr.next();
+	    		   
+	    		   System.out.println(finalResult.getKey()+"  "+finalResult.getValue());
+	    		   
+	    	   }
 				break;
-
-			}
-			case 4: {
-				System.out.println("Enter a Product id");
-				int n = sc.nextInt();
-				System.out.println(data.get(n));
+	       case 5:
+	    	   
+	    	   System.out.println("Enter id to delete product");
+	    	   int pid3= sc.nextInt();
+	    	   
+	    	   Product pobj1=product.remove(pid3);
+	    	   System.out.println("product deleted :"+pid3);
+				
 				break;
-
+			
+			
+			default:
+				System.out.println("wrong selection.....");
+				
+			
 			}
-			case 5: {
-				Set<Integer> s = data.keySet();
-				for (Object c : s) {
-					System.out.println(data.get(c));
-				}
-				break;
-			}
-
-			}
-
+			
+			
 		}
-
+		
 	}
-
 }
+
