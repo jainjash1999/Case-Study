@@ -177,7 +177,9 @@ public class BookServices {
 
 		BookDAO bDAO = new BookDAO();
 		Book book = new Book();
-		// wrappig fields into bean
+		
+		// wrapping fields into bean
+		
 		book.setBookId(bookId);
 		book.setBookTitle(bookTitle);
 		book.setBookPrice(bookId);
