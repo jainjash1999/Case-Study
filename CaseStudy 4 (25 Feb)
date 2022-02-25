@@ -230,7 +230,7 @@ public class BookUI {
 
 		int updateCount = bookservice.addBookSerice(bookId, bookTitle, bookPrice);
 
-		System.out.println("Inserted" + updateCount + "Record Succesfully");
+		System.out.println("Inserted " + updateCount + " Record Succesfully");
 	}
 
 }
