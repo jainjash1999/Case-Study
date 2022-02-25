@@ -1,1 +1,267 @@
+============================================Book.java==============================================
+package com.ac.bean;
+
+public class Book {
+
+	private int bookId;
+	private String bookTitle;
+	private float bookPrice;
+	private String grade;
+
+	public int getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+	public float getBookPrice() {
+		return bookPrice;
+	}
+
+	public void setBookPrice(int bookPrice) {
+		this.bookPrice = bookPrice;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+============================================BookDAO.java===========================================
+package com.ac.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import com.ac.bean.Book;
+
+public class BookDAO {
+
+	public int addBook(Book book) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = BookDB.getConnection();
+
+			String ins_str = "insert into bookinfo values(?,?,?,?)";
+
+			pstmt = con.prepareStatement(ins_str);
+			pstmt.setInt(1, book.getBookId());
+			pstmt.setString(2, book.getBookTitle());
+			pstmt.setFloat(3, book.getBookPrice());
+			pstmt.setString(4, book.getGrade());
+
+			int updateCount = pstmt.executeUpdate();
+
+			con.close();
+			return updateCount;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return 0;
+		}
+
+	}
+
+	public ArrayList getBookDetailsById(int bookId) throws Exception {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		con = BookDB.getConnection();
+
+		String sel_str = "Select bookTitle,bookPrice from Book where bookId = ?";
+
+		pstmt = con.prepareStatement(sel_str);
+		pstmt.setInt(1, bookId);
+		rs = pstmt.executeQuery();
+
+		ArrayList result = new ArrayList();
+		if (rs.next()) {
+			result.add(rs.getString(1));
+			result.add(rs.getString(2));
+		} else {
+			result.add("Invalid id");
+		}
+
+		return null;
+	}
+
+}
+
+
+
+
+
+
+
+============================================BookDB.java============================================
+package com.ac.DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class BookDB {
+
+	public static Connection getConnection() throws Exception {
+
+		String DriverName = "org.postgresql.Driver";
+		Class.forName(DriverName);
+
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/jash1", "postgres", "1212" + "");
+
+		return conn;
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+============================================BookServices.java======================================
+package com.ac.service;
+
+import com.ac.DAO.*;
+import com.ac.bean.*;
+
+public class BookServices {
+
+	public int addBookSerice(int bookId, String bookTitle, float bookPrice) {
+		String bookGrade = "";
+		if (bookPrice <= 500) {
+			bookGrade = "C";
+		} else if (bookPrice <= 700) {
+			bookGrade = "B";
+		} else {
+			bookGrade = "A";
+		}
+
+		BookDAO bDAO = new BookDAO();
+		Book book = new Book();
+		// wrappig fields into bean
+		book.setBookId(bookId);
+		book.setBookTitle(bookTitle);
+		book.setBookPrice(bookId);
+		book.setGrade(bookGrade);
+
+		int updateResult = 0;
+		try {
+			updateResult = bDAO.addBook(book);
+			return updateResult;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return 0;
+		}
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+============================================BookUI.java============================================
+package com.ac.Ui;
+
+import java.util.Scanner;
+
+import com.ac.service.BookServices;
+
+public class BookUI {
+	public static void main(String args[]) {
+		int bookId = 0;
+		String bookTitle = "";
+		float bookPrice = 0;
+		Scanner s = new Scanner(System.in);
+		System.out.println("Enter Book Id ");
+		bookId = s.nextInt();
+		System.out.println("Enter book Title");
+		bookTitle = s.next();
+		System.out.println("enter Book Price");
+		bookPrice = s.nextFloat();
+		BookServices bookservice = new BookServices();
+
+		int updateCount = bookservice.addBookSerice(bookId, bookTitle, bookPrice);
+
+		System.out.println("Inserted" + updateCount + "Record Succesfully");
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================================Output=================================================
+Enter Book Id 
+101
+Enter book Title
+RamLal
+enter Book Price
+1299
+Inserted 1 Record Succesfully
+
+
+jash1=# select * from bookinfo;
+ bookid | booktitle | bookprice | grade
+--------+-----------+-----------+-------
+    101 | RamLal    |       101 | A
+(1 row)
+
+
 
